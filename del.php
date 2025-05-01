@@ -18,7 +18,7 @@
             <?php
                 if(mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_array($result)){
-                        echo "<option value=\"row[titolo]\">$row[TITOLO]</option>";
+                        echo "<option value=\"$row[TITOLO]\">$row[TITOLO]</option>";
                     }
                 } else {
                     echo "Nel database non &egrave; presente alcun dato";
