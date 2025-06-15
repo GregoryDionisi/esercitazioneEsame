@@ -1,3 +1,6 @@
+<?php
+    require "session.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +10,27 @@
 </head>
 <body>
     <?php
-        $connection = mysqli_connect("localhost","root","","biblioteca");
+        $connection = new mysqli("localhost", "root", "", "biblioteca");
+        if($connection->connect_error){
+            die("Errore di connessione al database DBMS");
+        }
         $query = "SELECT TITOLO, AUTORE, GENERE FROM libri";
-        $result = mysqli_query($connection,$query);
+        $result = $connection->query($query);
 
-        if(mysqli_num_rows($result) != 0) {
+        if($connection->errno){
+            $connection->close();
+            die("Errore nell'esecuzione della query");
+        }
+
+        if(@ $result->num_rows != 0){ //RICORDATI DI NON METTERE LE PARENTESI TONDE
             echo "<table border>";
             echo "<tr>";
-            echo "<th>Titolo</th>";
-            echo "<th>Autore</th>";
-            echo "<th>Genere</th>";
+            echo "<th>TITOLO</th>";
+            echo "<th>AUTORE</th>";
+            echo "<th>GENERE</th>";
             echo "</tr>";
 
-            while($row = mysqli_fetch_array($result)){
+            while($row = @ $result->fetch_array()){
                 echo "<tr>";
                 echo "<td>$row[TITOLO]</td>";
                 echo "<td>$row[AUTORE]</td>";
@@ -28,12 +39,16 @@
             }
             echo "</table>";
         } else {
-            echo "Nel database non &egrave; presente alcun dato!";;
+            echo "Non &egrave presente alcun dato";
         }
-        mysqli_close($connection);
+        $result->free();
+        $connection->close();
     ?>
-    <br><br>
-    <a href="http://localhost/esercitazioneesame/add.php">Aggiungi un nuovo libro</a><br>
-    <a href="http://localhost/esercitazioneesame/del.php">Elimina un libro</a>
+    <br>
+    <a href="http://localhost/esercitazioneesame/add.php">Aggiungi libro</a><br>
+    <a href="http://localhost/esercitazioneesame/del.php">Elimina libro</a><br>
+    <?php
+    echo "<a href=\"http://localhost/esercitazioneesame/logout.php\">[$_SESSION[username] logout]</a>";
+    ?>
 </body>
 </html>

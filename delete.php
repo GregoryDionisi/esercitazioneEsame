@@ -1,3 +1,6 @@
+<?php
+    require "session.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +10,28 @@
 </head>
 <body>
     <?php
-        $titolo = $_POST["titolo"];
-        $connection = mysqli_connect("localhost","root","","biblioteca");
-        $query = "DELETE FROM libri WHERE TITOLO = '$titolo'";
-        $result = mysqli_query($connection,$query);
-
-        echo "Il libro $titolo &egrave; stato eliminato dal database!";
-        mysqli_close($connection);
+        $titolo = $_POST['titolo'];
+        $connection = @ new mysqli("localhost", "root", "", "biblioteca");
+        if($connection->connect_error){
+            die("Errore di connessione al database DBMS");
+        }
+        $query = "SELECT TITOLO FROM libri WHERE TITOLO = '$titolo'";
+        $result = @ $connection->query($query);
+        if($connection->errno){
+            $connection->close();
+            die("Errore nell'esecuzione della query");
+        }
+        if(@ $result->num_rows != 0){
+            $query = "DELETE FROM libri WHERE TITOLO = '$titolo'";
+            $result = @ $connection->query($query);
+            if($connection->errno){
+                $connection->close();
+                die("Errore nell'esecuzione della query");
+            }
+            echo "Il libro $titolo &egrave stato eliminato";
+        } else {
+            echo "Il libro $titolo non &egrave presente nel database";
+        }
     ?>
     <br><br>
     <a href="http://localhost/esercitazioneesame/index.php">Visualizza la tabella dei libri</a>
