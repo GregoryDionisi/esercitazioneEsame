@@ -1,18 +1,19 @@
-<?php
-	if (!isset($_POST['username']) || !isset($_POST['password'])) //isset() verifica se una variabile esiste ed è diversa da NULL
-?>
-<html>
-  <head>
-   <title>Login</title>
-  </head>
-  <body>
-   <form method="POST" action="login_backend.php">
-    Username <input name="username" type="text"><br>
-    Password
-    <input name="password" type="password"><br><br>
-    <input type="submit" value="Accedi">
-   </form>
-   <a href="http://localhost/esercitazioneesame/nuovo_utente.php">Non sei registrato? Registrati</a>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login.php</title>
+</head>
+<body>
+	<h2>Login</h2>
+	<form action="login_backend.php" method="POST">
+		Username:<br>
+		<input type="text" name="username"><br>
+		Password:<br>
+		<input type="password" name="password"><br><br>
+		<input type="submit" value="Invio"><br><br>
+	</form>
+	<a href="http://localhost/esercitazioneesame/nuovo_utente.php">Non sei ancora registrato? Registrati</a>
+</body>
 </html>
-

@@ -1,7 +1,4 @@
-<?php
-	if (!isset($_POST['username']) || !isset($_POST['password']))
-?>
-  <html>
+<html>
    <head>
      <title>Nuovo utente</title>
    </head>

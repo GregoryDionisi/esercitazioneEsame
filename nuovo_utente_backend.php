@@ -4,6 +4,8 @@
    </head>
     <body>
 <?php
+	if (!isset($_POST['username']) || !isset($_POST['password'])) {
+    } else {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	if (strlen($username) != 0 && strlen($password) != 0) {
@@ -21,8 +23,10 @@
 		$result->free();
 		$connection->close();
 	}
-	else
+	else {
 		echo "Username/password non validi.";
+}
+}
 ?>
  </body>
 </html>

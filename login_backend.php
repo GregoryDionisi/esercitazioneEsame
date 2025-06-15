@@ -4,6 +4,8 @@
   </head>
   <body>
 <?php
+	if (!isset($_POST['username']) || !isset($_POST['password'])){ //!isset() verifica se una variabile non esiste e non è diversa da NULL
+    } else {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	if (strlen($username) != 0 && strlen($password) != 0){ //strlen restituisce la lunghezza
@@ -42,6 +44,7 @@
 		echo "Username/password non validi: ";
 		echo " <a href=\"http://localhost/esercitazioneesame/login.php\">riprova.</a>";
 	}
+}
 ?>
  </body>
 </html>
